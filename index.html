@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generous Plate • Where every meal feeds a heart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/site.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .logo-font { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="flex min-h-screen flex-col bg-[#FDFBF0] text-stone-800">
+
+    <div id="nav-overlay" onclick="closeNavDrawer()" class="fixed inset-0 z-[60] bg-black/40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" aria-hidden="true"></div>
+
+    <aside id="nav-drawer" class="fixed top-0 left-0 z-[70] flex h-full w-[min(18rem,88vw)] -translate-x-full flex-col border-r border-[#e9d5a8] bg-white shadow-xl transition-transform duration-300 ease-out md:hidden">
+        <div class="flex items-center justify-between border-b border-[#f5ead8] px-4 py-3">
+            <span class="text-xs font-semibold uppercase tracking-wide text-[#8B7355]">Menu</span>
+            <button type="button" onclick="closeNavDrawer()" class="rounded-lg p-2 text-stone-600 hover:bg-[#fdf8eb]" aria-label="Close menu">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <nav class="flex-1 space-y-0.5 p-3" aria-label="Mobile navigation">
+            <a href="index.html" onclick="closeNavDrawer()" class="block rounded-lg bg-[#fdf8eb] px-3 py-2.5 text-sm font-medium text-[#6b5420]">Home</a>
+            <a href="menu.html" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Menu</a>
+            <a href="menu.html?category=Fast%20Food" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Fast food</a>
+            <a href="menu.html?category=Healthy" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Healthy</a>
+            <a href="support.html" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Support</a>
+            <a href="checkout.html" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Cart</a>
+        </nav>
+        <p class="border-t border-[#f5ead8] px-4 py-3 text-xs text-stone-500">Accra • Est. 20–40 min</p>
+    </aside>
+
+    <nav class="sticky top-0 z-50 border-b border-[#e9d5a8] bg-white/95 backdrop-blur">
+        <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5 md:px-6 md:py-3">
+            <div class="flex min-w-0 items-center gap-2">
+                <button type="button" class="shrink-0 rounded-lg p-2 text-stone-700 hover:bg-[#fdf8eb] md:hidden" onclick="openNavDrawer()" aria-label="Open navigation">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+                <a href="index.html" class="flex min-w-0 items-center">
+                    <img src="assets/logo.png" alt="Generous Plate" class="h-9 w-auto max-h-11 object-contain object-left md:h-11" width="180" height="44">
+                </a>
+            </div>
+            <div class="hidden items-center gap-1 md:flex">
+                <a href="index.html" class="rounded-lg bg-[#fdf8eb] px-3 py-2 text-sm font-medium text-[#6b5420]">Home</a>
+                <a href="menu.html" class="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Menu</a>
+                <a href="support.html" class="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Support</a>
+            </div>
+            <a href="checkout.html" class="relative flex shrink-0 items-center gap-1.5 rounded-full border border-[#e9d5a8] bg-[#fdf8eb] px-2.5 py-1.5 text-sm font-medium text-[#5c4d2c] hover:border-[#C5A059]/60 sm:gap-2 sm:px-3">
+                <i class="fa-solid fa-basket-shopping text-[#C5A059]"></i>
+                <span class="hidden sm:inline">Cart</span>
+                <span id="cart-count" class="flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#C5A059] px-1 text-[11px] font-bold text-white">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="flex-1">
+        <section class="border-b border-[#e9d5a8]/80 bg-white">
+            <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-10 md:grid-cols-2 md:gap-12 md:px-6 md:py-14 lg:gap-16">
+                <div class="order-2 md:order-1">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-[#C5A059]">Accra • Delivery 20–40 min</p>
+                    <h1 class="logo-font mt-3 text-3xl font-bold leading-tight text-[#1a1a1a] sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
+                        Where every meal feeds a heart
+                    </h1>
+                    <p class="mt-4 max-w-md text-sm leading-relaxed text-stone-600 sm:text-base">
+                        Order from local kitchens with transparent pricing and optional donations that support people in need.Premium delivery flow with a purpose.
+                    </p>
+                    <div class="mt-6 flex flex-wrap items-center gap-3">
+                        <a href="menu.html" class="inline-flex items-center justify-center rounded-full bg-[#C5A059] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#b08d4f]">
+                            Browse menu
+                        </a>
+                        <a href="#how" class="inline-flex items-center justify-center rounded-full border border-[#e9d5a8] bg-white px-5 py-2.5 text-sm font-medium text-stone-700 hover:border-[#C5A059]/50 hover:text-[#8B6914]">
+                            How it works
+                        </a>
+                    </div>
+                    <dl class="mt-8 grid max-w-md grid-cols-3 gap-3 text-center sm:text-left">
+                        <div class="rounded-xl border border-[#f0e6d4] bg-[#fdfbf6] px-2 py-3 sm:px-3">
+                            <dt class="text-[10px] font-medium uppercase tracking-wide text-stone-500">Delivery</dt>
+                            <dd class="mt-1 text-xs font-semibold text-stone-800">20–40 min</dd>
+                        </div>
+                        <div class="rounded-xl border border-[#f0e6d4] bg-[#fdfbf6] px-2 py-3 sm:px-3">
+                            <dt class="text-[10px] font-medium uppercase tracking-wide text-stone-500">Donate</dt>
+                            <dd class="mt-1 text-xs font-semibold text-stone-800">Optional</dd>
+                        </div>
+                        <div class="rounded-xl border border-[#f0e6d4] bg-[#fdfbf6] px-2 py-3 sm:px-3">
+                            <dt class="text-[10px] font-medium uppercase tracking-wide text-stone-500">Riders</dt>
+                            <dd class="mt-1 text-xs font-semibold text-stone-800">Local</dd>
+                        </div>
+                    </dl>
+                </div>
+                <div class="order-1 md:order-2">
+                    <div class="overflow-hidden rounded-2xl border border-[#e9d5a8]/80 bg-stone-100 shadow-lg">
+                        <img src="https://chowdown858479102.wordpress.com/wp-content/uploads/2020/06/africanfood.jpg?w=900" alt="Fresh meals prepared for delivery" class="aspect-[4/3] w-full object-cover" width="900" height="700" loading="eager">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="border-b border-[#e9d5a8]/60 bg-[#fdfbf6] py-8">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
+                <p class="text-center text-xs font-medium uppercase tracking-wide text-stone-500">Shop by mood</p>
+                <div class="mt-4 flex flex-wrap justify-center gap-2">
+                    <a href="menu.html?category=Ghanaian" class="rounded-full border border-[#e9d5a8] bg-white px-4 py-2 text-xs font-medium text-stone-700 shadow-sm transition hover:border-[#C5A059]/60 hover:text-[#8B6914]">Ghanaian</a>
+                    <a href="menu.html?category=Fast%20Food" class="rounded-full border border-[#e9d5a8] bg-white px-4 py-2 text-xs font-medium text-stone-700 shadow-sm transition hover:border-[#C5A059]/60 hover:text-[#8B6914]">Fast food</a>
+                    <a href="menu.html?category=Healthy" class="rounded-full border border-[#e9d5a8] bg-white px-4 py-2 text-xs font-medium text-stone-700 shadow-sm transition hover:border-[#C5A059]/60 hover:text-[#8B6914]">Healthy</a>
+                    <a href="menu.html" class="rounded-full bg-[#C5A059] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#b08d4f]">Full menu</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="how" class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+            <h2 class="text-center text-xl font-bold text-[#1a1a1a] md:text-2xl">How it works</h2>
+            <p class="mx-auto mt-2 max-w-lg text-center text-sm text-stone-600">From browsing to doorstep delivery in four clear steps.</p>
+            <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="rounded-2xl border border-[#f0e6d4] bg-white p-5 shadow-sm">
+                    <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[#fdf8eb] text-[#C5A059]"><i class="fa-solid fa-mobile-screen-button"></i></span>
+                    <h3 class="mt-4 text-sm font-semibold text-stone-900">Browse & order</h3>
+                    <p class="mt-2 text-xs leading-relaxed text-stone-600">Search meals and restaurants, then add to your cart.</p>
+                </div>
+                <div class="rounded-2xl border border-[#f0e6d4] bg-white p-5 shadow-sm">
+                    <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[#fdf8eb] text-[#C5A059]"><i class="fa-solid fa-fire-burner"></i></span>
+                    <h3 class="mt-4 text-sm font-semibold text-stone-900">Kitchen prepares</h3>
+                    <p class="mt-2 text-xs leading-relaxed text-stone-600">Restaurants starts your order fresh for pickup.</p>
+                </div>
+                <div class="rounded-2xl border border-[#f0e6d4] bg-white p-5 shadow-sm">
+                    <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[#fdf8eb] text-[#C5A059]"><i class="fa-solid fa-truck-fast"></i></span>
+                    <h3 class="mt-4 text-sm font-semibold text-stone-900">Rider delivers</h3>
+                    <p class="mt-2 text-xs leading-relaxed text-stone-600">Track your rider in roughly 20–40 minutes.</p>
+                </div>
+                <div class="rounded-2xl border border-[#f0e6d4] bg-white p-5 shadow-sm">
+                    <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[#fdf8eb] text-[#C5A059]"><i class="fa-solid fa-hand-holding-heart"></i></span>
+                    <h3 class="mt-4 text-sm font-semibold text-stone-900">Feed a heart</h3>
+                    <p class="mt-2 text-xs leading-relaxed text-stone-600">Add an optional donation at checkout.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="border-t border-[#e9d5a8]/80 bg-white py-12 md:py-14">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
+                <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                    <div>
+                        <h2 class="text-xl font-bold text-[#1a1a1a] md:text-2xl">Popular right now</h2>
+                        <p class="mt-1 text-sm text-stone-600">spotlight dishes</p>
+                    </div>
+                    <a href="menu.html" class="inline-flex items-center gap-2 text-sm font-semibold text-[#b8944D] hover:text-[#8B6914]">
+                        View all 
+                    </a>
+                </div>
+                <div id="featured-grid" class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"></div>
+            </div>
+        </section>
+
+        <section class="border-t border-[#e9d5a8] bg-[#1a1a1a] py-10 text-white">
+            <div class="mx-auto max-w-6xl px-4 text-center md:px-6">
+                <p class="text-3xl font-bold tracking-tight text-[#f5e6c8] md:text-4xl">1,247</p>
+                <p class="mt-1 text-sm text-[#d4c4a8]">Meals supported through customer donations last month</p>
+                <p class="mx-auto mt-4 max-w-xl text-xs leading-relaxed text-stone-400 md:text-sm">
+                    Small add-ons at checkout add up. Thank you for feeding your community.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mt-auto border-t border-[#e9d5a8] bg-white py-4 md:py-5">
+        <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-4 px-4 text-sm md:grid-cols-3 md:gap-6 md:px-6">
+            <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-stone-600" aria-label="Footer">
+                <a href="index.html" class="hover:text-[#C5A059]">Home</a>
+                <a href="menu.html" class="hover:text-[#C5A059]">Menu</a>
+                <a href="support.html" class="hover:text-[#C5A059]">Support</a>
+            </nav>
+            <div class="flex flex-wrap items-center justify-center gap-5 md:justify-end">
+                <div class="flex items-center gap-4 text-[#5c4d2c]">
+                    <a href="https://www.instagram.com/biteandeatghana/" target="_blank" rel="noopener noreferrer" class="hover:text-[#C5A059]" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="https://wa.me/233541756722" target="_blank" rel="noopener noreferrer" class="hover:text-[#C5A059]" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                    <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#C5A059]" aria-label="X"><i class="fa-brands fa-x-twitter text-lg"></i></a>
+                </div>
+                <span class="whitespace-nowrap text-xs font-semibold tracking-wide text-[#C5A059]">Made by Frost</span>
+            </div>
+            <p class="text-center text-xs text-stone-500 md:text-left">© 2026 Generous Plate</p>
+        </div>
+    </footer>
+
+    <script>
+        let teamCarouselTimer = null;
+
+        function initializeTailwind() {
+            tailwind.config = { content: ["./**/*.{html,js}"] };
+        }
+
+        function renderFeatured() {
+            const container = document.getElementById('featured-grid');
+            const featured = products.slice(0, 2);
+            let html = '';
+            featured.forEach(product => {
+                html += `
+                <article class="flex flex-col overflow-hidden rounded-xl border border-[#e9d5a8] bg-white shadow-sm transition hover:border-[#C5A059]/40 hover:shadow-md">
+                    <div class="gp-menu-thumb relative h-36 overflow-hidden bg-stone-100 sm:h-40">
+                        <a href="menu.html" class="block h-full w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059]" aria-label="View ${product.name} on menu">
+                            <img src="${product.img}" alt="" class="h-full w-full object-cover">
+                        </a>
+                    </div>
+                    <div class="flex flex-1 flex-col p-3">
+                        <p class="text-[10px] font-medium uppercase tracking-wide text-stone-500">${product.restaurant}</p>
+                        <h3 class="mt-0.5 line-clamp-2 text-xs font-semibold leading-snug text-stone-900 sm:text-sm">${product.name}</h3>
+                        <div class="mt-auto flex items-end justify-between gap-2 pt-3">
+                            <span class="text-sm font-bold text-[#b8944D]">GH₵${product.price}</span>
+                            <button type="button" onclick="quickAddToCart(${product.id})" class="shrink-0 rounded-full bg-[#C5A059] px-3 py-1 text-[11px] font-semibold text-white hover:bg-[#b08d4f]">Add</button>
+                        </div>
+                    </div>
+                </article>`;
+            });
+            const slides = teamMembers.map(m => `
+                <div class="flex min-w-full flex-col items-center justify-center gap-3 px-4 py-4 sm:flex-row sm:gap-6 sm:px-8">
+                    <img src="${m.photo}" alt="" class="h-20 w-20 shrink-0 rounded-full object-cover shadow-md ring-2 ring-[#C5A059]/45 sm:h-24 sm:w-24" width="96" height="96" loading="lazy">
+                    <p class="logo-font text-center text-lg font-semibold text-[#1a1a1a] sm:text-left sm:text-xl">${m.name}</p>
+                </div>`).join('');
+            html += `
+            <div class="col-span-2 flex min-h-[11rem] flex-col overflow-hidden rounded-xl border border-[#e9d5a8] bg-gradient-to-br from-white via-[#fffcf7] to-[#fdf8eb] shadow-sm sm:min-h-[12.5rem]">
+                <p class="px-3 pt-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8B7355]">Team spotlight</p>
+                <div class="relative min-h-[8.5rem] flex-1 overflow-hidden sm:min-h-[9.5rem]">
+                    <div id="teamTrack" class="flex h-full transition-transform duration-500 ease-out" style="transform:translateX(0)">
+                        ${slides}
+                    </div>
+                </div>
+                <div id="teamDots" class="flex justify-center gap-1.5 pb-3"></div>
+            </div>`;
+            container.innerHTML = html;
+            const dots = document.getElementById('teamDots');
+            if (dots) {
+                dots.innerHTML = teamMembers.map((_, i) =>
+                    '<span class="team-dot h-1.5 w-1.5 rounded-full bg-stone-300 transition-colors" data-i="' + i + '"></span>'
+                ).join('');
+            }
+            startTeamCarousel();
+        }
+
+        function startTeamCarousel() {
+            if (teamCarouselTimer) clearInterval(teamCarouselTimer);
+            const track = document.getElementById('teamTrack');
+            if (!track) return;
+            let teamIdx = 0;
+            function updateDots() {
+                document.querySelectorAll('.team-dot').forEach((d, i) => {
+                    d.style.backgroundColor = i === teamIdx ? '#C5A059' : '#d6d3d1';
+                });
+            }
+            updateDots();
+            teamCarouselTimer = setInterval(function () {
+                teamIdx = (teamIdx + 1) % teamMembers.length;
+                track.style.transform = 'translateX(-' + (teamIdx * 100) + '%)';
+                updateDots();
+            }, 3000);
+        }
+
+        function quickAddToCart(id) {
+            const product = products.find(p => p.id === id);
+            if (product) addToCart(product);
+        }
+
+        window.onload = function() {
+            initializeTailwind();
+            updateCartCount();
+            renderFeatured();
+        };
+    </script>
+</body>
+</html>

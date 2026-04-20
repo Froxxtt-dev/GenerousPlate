@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generous Plate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/site.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .logo-font { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="flex min-h-screen flex-col bg-[#FDFBF0] text-stone-800">
+
+    <div id="nav-overlay" onclick="closeNavDrawer()" class="fixed inset-0 z-[60] bg-black/40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" aria-hidden="true"></div>
+
+    <aside id="nav-drawer" class="fixed top-0 left-0 z-[70] flex h-full w-[min(18rem,88vw)] -translate-x-full flex-col border-r border-[#e9d5a8] bg-white shadow-xl transition-transform duration-300 ease-out md:hidden">
+        <div class="flex items-center justify-between border-b border-[#f5ead8] px-4 py-3">
+            <span class="text-xs font-semibold uppercase tracking-wide text-[#8B7355]">Menu</span>
+            <button type="button" onclick="closeNavDrawer()" class="rounded-lg p-2 text-stone-600 hover:bg-[#fdf8eb]" aria-label="Close menu">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <nav class="flex-1 space-y-0.5 p-3" aria-label="Mobile navigation">
+            <a href="index.html" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Home</a>
+            <a href="menu.html" onclick="closeNavDrawer()" class="block rounded-lg bg-[#fdf8eb] px-3 py-2.5 text-sm font-medium text-[#6b5420]">Menu</a>
+            <a href="menu.html?category=Fast%20Food" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Fast food</a>
+            <a href="menu.html?category=Healthy" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Healthy</a>
+            <a href="support.html" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Support</a>
+            <a href="checkout.html" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Cart</a>
+        </nav>
+        <p class="border-t border-[#f5ead8] px-4 py-3 text-xs text-stone-500">Search & filter below</p>
+    </aside>
+
+    <nav class="sticky top-0 z-50 border-b border-[#e9d5a8] bg-white/95 backdrop-blur">
+        <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5 md:px-6 md:py-3">
+            <div class="flex min-w-0 items-center gap-2">
+                <button type="button" class="shrink-0 rounded-lg p-2 text-stone-700 hover:bg-[#fdf8eb] md:hidden" onclick="openNavDrawer()" aria-label="Open navigation">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+                <a href="index.html" class="flex min-w-0 items-center">
+                    <img src="assets/logo.png" alt="Generous Plate" class="h-9 w-auto max-h-11 object-contain object-left md:h-11" width="180" height="44">
+                </a>
+            </div>
+            <div class="hidden items-center gap-1 md:flex">
+                <a href="index.html" class="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Home</a>
+                <a href="menu.html" class="rounded-lg bg-[#fdf8eb] px-3 py-2 text-sm font-medium text-[#6b5420]">Menu</a>
+                <a href="support.html" class="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Support</a>
+            </div>
+            <a href="checkout.html" class="relative flex shrink-0 items-center gap-1.5 rounded-full border border-[#e9d5a8] bg-[#fdf8eb] px-2.5 py-1.5 text-sm font-medium text-[#5c4d2c] hover:border-[#C5A059]/50 sm:gap-2 sm:px-3">
+                <i class="fa-solid fa-basket-shopping text-[#C5A059]"></i>
+                <span class="hidden sm:inline">Cart</span>
+                <span id="cart-count" class="flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#C5A059] px-1 text-[11px] font-bold text-white">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="flex-1">
+        <div class="border-b border-[#e9d5a8] bg-white">
+            <div class="mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-10">
+                <h1 class="text-2xl font-bold text-stone-900 md:text-3xl">Order food</h1>
+                <p class="mt-1 text-sm text-stone-600">Search, filter by category, tap a dish for details and photos.</p>
+
+                <div class="relative mx-auto mt-6 max-w-xl">
+                    <label for="searchInput" class="sr-only">Search meals or restaurants</label>
+                    <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
+                    <input id="searchInput" type="search" autocomplete="off" placeholder="Search meals or restaurants…" oninput="filterProducts()"
+                        class="w-full rounded-full border border-stone-200 bg-[#fdfbf6] py-2.5 pl-10 pr-4 text-sm text-stone-900 placeholder:text-stone-400 focus:border-[#C5A059] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                </div>
+
+                <div class="mt-5 flex flex-wrap justify-center gap-2 md:justify-start" id="categoryFilters" role="tablist" aria-label="Categories"></div>
+            </div>
+        </div>
+
+        <div class="mx-auto max-w-6xl px-4 py-6 md:px-6 md:py-8">
+            <div id="productsGrid" class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4"></div>
+            <p id="noResults" class="hidden py-12 text-center text-sm text-slate-500">No meals match your search. Try another word or category.</p>
+        </div>
+    </main>
+
+    <!-- Product modal -->
+    <div id="productModal" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/50 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="modalName">
+        <div class="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white shadow-xl">
+            <div class="relative">
+                <div id="modalCarousel" class="gp-carousel h-52 sm:h-56"></div>
+                <button type="button" onclick="closeModal()" class="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-slate-700 shadow-md hover:bg-white" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5">
+                <p id="modalRestaurant" class="text-[11px] font-medium uppercase tracking-wide text-slate-500"></p>
+                <h2 id="modalName" class="mt-1 text-lg font-bold text-slate-900"></h2>
+                <div class="mt-2 flex items-center gap-2">
+                    <span id="modalRating" class="text-xs text-amber-500"></span>
+                    <span id="modalPrice" class="text-base font-bold text-[#b8944D]"></span>
+                </div>
+                <p id="modalDescription" class="mt-4 text-sm leading-relaxed text-slate-600"></p>
+                <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-medium text-slate-600">Qty</span>
+                        <div class="flex items-center rounded-full border border-slate-200">
+                            <button type="button" onclick="changeModalQty(-1)" class="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">−</button>
+                            <input id="modalQty" type="text" value="1" readonly class="w-10 border-x border-slate-200 bg-transparent py-1.5 text-center text-sm focus:outline-none">
+                            <button type="button" onclick="changeModalQty(1)" class="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">+</button>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addCurrentToCart()" class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C5A059] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#b08d4f] sm:w-auto">
+                        <i class="fa-solid fa-cart-plus text-sm"></i> Add to cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-auto border-t border-[#e9d5a8] bg-white py-4 md:py-5">
+        <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-4 px-4 text-sm md:grid-cols-3 md:gap-6 md:px-6">
+            <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-stone-600" aria-label="Footer">
+                <a href="index.html" class="hover:text-[#C5A059]">Home</a>
+                <a href="menu.html" class="hover:text-[#C5A059]">Menu</a>
+                <a href="support.html" class="hover:text-[#C5A059]">Support</a>
+            </nav>
+            <div class="flex flex-wrap items-center justify-center gap-5 md:justify-end">
+                <div class="flex items-center gap-4 text-[#5c4d2c]">
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#C5A059]" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="hover:text-[#C5A059]" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                    <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#C5A059]" aria-label="X"><i class="fa-brands fa-x-twitter text-lg"></i></a>
+                </div>
+                <span class="whitespace-nowrap text-xs font-semibold tracking-wide text-[#C5A059]">Made by Frost</span>
+            </div>
+         <p class="text-center text-xs text-stone-500 md:text-left">© 2026 Generous Plate</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentProduct = null;
+        let selectedCategory = "All";
+
+        function initializeTailwind() {
+            tailwind.config = { content: ["./**/*.{html,js}"] };
+        }
+
+        function syncCategoryUrl() {
+            const url = new URL(window.location.href);
+            if (selectedCategory === "All") url.searchParams.delete("category");
+            else url.searchParams.set("category", selectedCategory);
+            history.replaceState({}, "", url);
+        }
+
+        function renderCategories() {
+            const container = document.getElementById("categoryFilters");
+            let html = "";
+            categories.forEach(cat => {
+                const safeId = cat.replace(/\s+/g, "-");
+                const href = cat === "All" ? "menu.html" : "menu.html?category=" + encodeURIComponent(cat);
+                const esc = cat.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+                html += `<a href="${href}" id="cat-${safeId}" onclick="event.preventDefault(); setCategory('${esc}');" role="tab" aria-selected="false"
+                    class="category-chip inline-flex rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-xs font-medium text-stone-700 transition hover:border-[#C5A059]/50">${cat}</a>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function setCategory(cat) {
+            selectedCategory = cat;
+            syncCategoryUrl();
+            categories.forEach(c => {
+                const safeId = c.replace(/\s+/g, "-");
+                const btn = document.getElementById("cat-" + safeId);
+                if (!btn) return;
+                if (c === cat) {
+                    btn.className = "category-chip inline-flex rounded-full border border-[#C5A059] bg-[#C5A059] px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm transition";
+                    btn.setAttribute("aria-selected", "true");
+                } else {
+                    btn.className = "category-chip inline-flex rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-xs font-medium text-stone-700 transition hover:border-[#C5A059]/50";
+                    btn.setAttribute("aria-selected", "false");
+                }
+            });
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
+            const container = document.getElementById("productsGrid");
+            const noResults = document.getElementById("noResults");
+
+            let filtered = products;
+            if (selectedCategory !== "All") {
+                filtered = filtered.filter(p => p.category === selectedCategory);
+            }
+            if (searchTerm) {
+                filtered = filtered.filter(p =>
+                    p.name.toLowerCase().includes(searchTerm) ||
+                    p.restaurant.toLowerCase().includes(searchTerm) ||
+                    p.category.toLowerCase().includes(searchTerm) ||
+                    (p.description && p.description.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = "";
+                noResults.classList.remove("hidden");
+                return;
+            }
+            noResults.classList.add("hidden");
+            let html = "";
+            filtered.forEach(product => {
+                const rating = product.rating != null ? product.rating.toFixed(1) : "—";
+                html += `
+                <article class="flex flex-col overflow-hidden rounded-xl border border-[#e9d5a8] bg-white shadow-sm transition hover:border-[#C5A059]/40 hover:shadow-md">
+                    <div class="gp-menu-thumb relative h-32 overflow-hidden bg-stone-100 sm:h-36">
+                        <a href="menu.html#product-${product.id}" class="block h-full w-full" onclick="event.preventDefault(); showProductModal(${product.id});" aria-label="Photos and details for ${product.name.replace(/"/g, '&quot;')}">
+                            <img src="${product.img}" alt="" class="h-full w-full object-cover" loading="lazy">
+                        </a>
+                    </div>
+                    <button type="button" onclick="showProductModal(${product.id})" class="flex flex-1 flex-col p-3 text-left">
+                        <p class="text-[10px] font-medium uppercase tracking-wide text-stone-500">${product.restaurant}</p>
+                        <h3 class="mt-0.5 line-clamp-2 text-xs font-semibold leading-snug text-stone-900 sm:text-sm">${product.name}</h3>
+                        <div class="mt-1 flex items-center gap-1 text-[10px] text-amber-600">
+                            <i class="fa-solid fa-star text-[9px]"></i><span>${rating}</span>
+                        </div>
+                    </button>
+                    <div class="flex items-center justify-between border-t border-stone-100 px-3 py-2.5">
+                        <span class="text-sm font-bold text-[#b8944D]">GH₵${product.price}</span>
+                        <button type="button" onclick="event.stopPropagation(); quickAdd(${product.id});" class="rounded-full border border-[#e9d5a8] bg-[#fdf8eb] px-2.5 py-1 text-[11px] font-semibold text-[#5c4d2c] hover:border-[#C5A059]/50">
+                            Add
+                        </button>
+                    </div>
+                </article>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function fillModalCarousel(product) {
+            const imgs = getProductImages(product);
+            document.getElementById("modalCarousel").innerHTML = `
+                <div class="gp-carousel-track gp-carousel-track--animate h-full">
+                    <img src="${imgs[0]}" alt="">
+                    <img src="${imgs[1]}" alt="">
+                    <img src="${imgs[2]}" alt="">
+                </div>`;
+        }
+
+        function showProductModal(id) {
+            currentProduct = products.find(p => p.id === id);
+            if (!currentProduct) return;
+            fillModalCarousel(currentProduct);
+            document.getElementById("modalRestaurant").textContent = currentProduct.restaurant;
+            document.getElementById("modalName").textContent = currentProduct.name;
+            const r = currentProduct.rating != null ? currentProduct.rating.toFixed(1) : "—";
+            document.getElementById("modalRating").innerHTML = `<i class="fa-solid fa-star text-amber-400"></i> ${r}`;
+            document.getElementById("modalPrice").textContent = "GH₵" + currentProduct.price + " each";
+            document.getElementById("modalDescription").textContent = currentProduct.description || "";
+            document.getElementById("modalQty").value = 1;
+            const m = document.getElementById("productModal");
+            m.classList.remove("hidden");
+            m.classList.add("flex");
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("productModal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+            currentProduct = null;
+        }
+
+        function changeModalQty(change) {
+            const qtyInput = document.getElementById("modalQty");
+            let qty = parseInt(qtyInput.value, 10) || 1;
+            qty = Math.max(1, qty + change);
+            qtyInput.value = qty;
+        }
+
+        function addCurrentToCart() {
+            if (!currentProduct) return;
+            const qty = parseInt(document.getElementById("modalQty").value, 10) || 1;
+            for (let i = 0; i < qty; i++) addToCart(currentProduct);
+            closeModal();
+        }
+
+        function quickAdd(id) {
+            const product = products.find(p => p.id === id);
+            if (product) addToCart(product);
+        }
+
+        document.getElementById("productModal")?.addEventListener("click", function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        window.onload = function() {
+            initializeTailwind();
+            updateCartCount();
+            renderCategories();
+            const params = new URLSearchParams(window.location.search);
+            const catParam = params.get("category");
+            if (catParam && categories.includes(catParam)) setCategory(catParam);
+            else setCategory("All");
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout • Generous Plate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/site.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .logo-font { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="flex min-h-screen flex-col bg-[#FDFBF0] text-stone-800">
+
+    <div id="nav-overlay" onclick="closeNavDrawer()" class="fixed inset-0 z-[60] bg-black/40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" aria-hidden="true"></div>
+
+    <aside id="nav-drawer" class="fixed top-0 left-0 z-[70] flex h-full w-[min(18rem,88vw)] -translate-x-full flex-col border-r border-[#e9d5a8] bg-white shadow-xl transition-transform duration-300 ease-out md:hidden">
+        <div class="flex items-center justify-between border-b border-[#f5ead8] px-4 py-3">
+            <span class="text-xs font-semibold uppercase tracking-wide text-[#8B7355]">Menu</span>
+            <button type="button" onclick="closeNavDrawer()" class="rounded-lg p-2 text-stone-600 hover:bg-[#fdf8eb]" aria-label="Close menu">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <nav class="flex-1 space-y-0.5 p-3" aria-label="Mobile navigation">
+            <a href="index.html" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Home</a>
+            <a href="menu.html" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Menu</a>
+            <a href="support.html" onclick="closeNavDrawer()" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Support</a>
+            <a href="checkout.html" onclick="closeNavDrawer()" class="block rounded-lg bg-[#fdf8eb] px-3 py-2.5 text-sm font-medium text-[#6b5420]">Cart</a>
+        </nav>
+    </aside>
+
+    <nav class="sticky top-0 z-50 border-b border-[#e9d5a8] bg-white/95 backdrop-blur">
+        <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5 md:px-6 md:py-3">
+            <div class="flex min-w-0 items-center gap-2">
+                <button type="button" class="shrink-0 rounded-lg p-2 text-stone-700 hover:bg-[#fdf8eb] md:hidden" onclick="openNavDrawer()" aria-label="Open navigation">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+                <a href="index.html" class="flex min-w-0 items-center">
+                    <img src="assets/logo.png" alt="Generous Plate" class="h-9 w-auto max-h-11 object-contain object-left md:h-11" width="180" height="44">
+                </a>
+            </div>
+            <div class="hidden items-center gap-1 md:flex">
+                <a href="index.html" class="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Home</a>
+                <a href="menu.html" class="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Menu</a>
+                <a href="support.html" class="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 hover:bg-[#fdf8eb] hover:text-[#8B6914]">Support</a>
+            </div>
+            <a href="checkout.html" class="relative flex shrink-0 items-center gap-1.5 rounded-full border border-[#C5A059]/50 bg-[#fdf8eb] px-2.5 py-1.5 text-sm font-semibold text-[#5c4d2c] sm:gap-2 sm:px-3">
+                <i class="fa-solid fa-basket-shopping text-[#C5A059]"></i>
+                <span class="hidden sm:inline">Cart</span>
+                <span id="cart-count" class="flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#C5A059] px-1 text-[11px] font-bold text-white">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-8 md:px-6 md:py-10">
+        <h1 class="text-2xl font-bold text-slate-900 md:text-3xl">Checkout</h1>
+        <p class="mt-1 text-sm text-slate-600">Review your cart, delivery details and payment.</p>
+
+        <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:gap-10">
+
+            <div class="space-y-6 lg:col-span-7">
+                <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                    <h2 class="flex items-center gap-2 text-base font-semibold text-slate-900">
+                        <i class="fa-solid fa-location-dot text-[#C5A059]"></i> Delivery
+                    </h2>
+                    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label for="name" class="mb-1 block text-xs font-medium text-slate-600">Full name</label>
+                            <input id="name" type="text" class="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                        </div>
+                        <div>
+                            <label for="phone" class="mb-1 block text-xs font-medium text-slate-600">Phone</label>
+                            <input id="phone" type="tel" class="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="address" class="mb-1 block text-xs font-medium text-slate-600">Address</label>
+                            <input id="address" type="text"  class="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                        </div>
+                    </div>
+                    <p class="mt-3 flex items-center gap-2 text-xs text-[#8B6914]">
+                        <i class="fa-regular fa-clock"></i> Est. arrival <strong>20–40 min</strong> with smart routing
+                    </p>
+                </section>
+
+                <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                    <h2 class="text-base font-semibold text-slate-900">Payment</h2>
+                    <div class="mt-4 flex border-b border-slate-200">
+                        <button type="button" onclick="switchPayment(0)" id="tab-momo" class="flex-1 border-b-2 border-[#C5A059] py-2.5 text-sm font-semibold text-[#8B6914]">MTN MoMo</button>
+                        <button type="button" onclick="switchPayment(1)" id="tab-card" class="flex-1 border-b-2 border-transparent py-2.5 text-sm font-medium text-slate-500">Card</button>
+                    </div>
+                    <div id="momo-form" class="mt-4">
+                        <div class="rounded-xl bg-[#fdf8eb]/90 p-4">
+                            <p class="text-sm font-medium text-stone-800">MoMo number</p>
+                            <input id="momo-phone" type="tel"  placeholder="024 XXX XXXX" class="mt-2 w-full rounded-xl border border-[#e9d5a8] bg-white px-3 py-2.5 text-sm focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                            <p class="mt-2 text-xs text-slate-500">You’ll confirm payment on your handset.</p>
+                        </div>
+                    </div>
+                    <div id="card-form" class="mt-4 hidden space-y-4">
+                        <div>
+                            <label class="mb-1 block text-xs font-medium text-slate-600">Card number</label>
+                            <input id="card-number" type="text" placeholder="4424 " maxlength="19" class="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="mb-1 block text-xs font-medium text-slate-600">Expiry</label>
+                                <input id="expiry" type="text" placeholder="MM / YY" maxlength="5" class="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                            </div>
+                            <div>
+                                <label class="mb-1 block text-xs font-medium text-slate-600">CVV</label>
+                                <input id="cvv" type="text" placeholder="123" maxlength="4" class="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="lg:col-span-5">
+                <div class="sticky top-20 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                    <h2 class="text-base font-semibold text-slate-900">Your order</h2>
+                    <div id="cart-items" class="mt-4 max-h-64 space-y-4 overflow-y-auto pr-1 text-sm"></div>
+                    <div class="mt-4 flex justify-between text-sm font-medium text-slate-700">
+                        <span>Subtotal</span>
+                        <span id="subtotal">GH₵0</span>
+                    </div>
+
+                    <div class="mt-5 rounded-xl border border-[#e9d5a8] bg-[#fdf8eb]/70 p-4">
+                        <div class="flex items-start gap-3">
+                            <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#C5A059] text-white">
+                                <i class="fa-solid fa-heart text-sm"></i>
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-900">Feed a heart</h3>
+                                <p class="text-xs text-slate-600">Optional add-on at checkout.</p>
+                            </div>
+                        </div>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <button type="button" onclick="addDonation(10)" class="flex-1 min-w-[4rem] rounded-lg border border-[#e9d5a8] bg-white py-2 text-xs font-semibold text-[#5c4d2c] hover:border-[#C5A059]/60">GH₵10</button>
+                            <button type="button" onclick="addDonation(20)" class="flex-1 min-w-[4rem] rounded-lg border border-[#e9d5a8] bg-white py-2 text-xs font-semibold text-[#5c4d2c] hover:border-[#C5A059]/60">GH₵20</button>
+                            <input id="custom-donation" type="number" min="0" placeholder="Other" class="w-20 rounded-lg border border-[#e9d5a8] px-2 py-2 text-center text-xs focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
+                            <button type="button" onclick="addCustomDonation()" class="rounded-lg bg-[#C5A059] px-3 py-2 text-xs font-semibold text-white hover:bg-[#b08d4f]">Add</button>
+                        </div>
+                        <div id="donation-amount" class="mt-2 hidden text-center text-xs font-semibold text-[#8B6914]">
+                            Donation <span id="donation-value">GH₵0</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 text-base font-bold text-slate-900">
+                        <span>Total</span>
+                        <span id="total-amount">GH₵0</span>
+                    </div>
+
+                    <button type="button" onclick="placeOrder()" id="place-order-btn" class="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-[#C5A059] py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#b08d4f]">
+                        <i class="fa-solid fa-lock text-xs"></i>
+                        <span id="place-order-label">Place order & pay</span>
+                    </button>
+                    <p class="mt-3 text-center text-[11px] text-slate-500">
+                        <i class="fa-solid fa-shield-halved text-[#C5A059]"></i> Secured Payment
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="processingModal" class="fixed inset-0 z-[2000] hidden items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+        <div class="w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-xl">
+            <div class="mx-auto h-12 w-12 animate-spin rounded-full border-2 border-[#C5A059] border-t-transparent"></div>
+            <h3 class="mt-6 text-lg font-semibold text-slate-900">Processing payment</h3>
+            <p class="mt-2 text-sm text-slate-600">Securely confirming with your provider…</p>
+        </div>
+    </div>
+
+    <div id="successModal" class="fixed inset-0 z-[2000] hidden items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+        <div class="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-xl">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#fdf8eb] text-[#8B6914]">
+                <i class="fa-solid fa-check text-2xl"></i>
+            </div>
+            <h2 class="mt-5 text-xl font-bold text-slate-900">Order confirmed</h2>
+            <p class="mt-2 text-sm text-slate-600">Reference <span id="order-id" class="font-mono font-semibold text-slate-900"></span></p>
+            <div class="mt-5 rounded-xl bg-slate-50 p-4 text-left text-sm text-slate-600">
+                <p>We’ve notified the restaurant and assigned a rider. Typical arrival: 20–40 minutes.</p>
+                <p id="donation-thanks" class="mt-3 hidden text-sm font-medium text-[#8B6914]">Thank you. Your donation helps feed someone in need.</p>
+            </div>
+            <button type="button" onclick="showRiderTracking()" class="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#C5A059] py-3 text-sm font-semibold text-white hover:bg-[#b08d4f]">
+                <i class="fa-solid fa-route"></i> Track delivery
+            </button>
+            <button type="button" onclick="goHome()" class="mt-3 text-sm text-slate-500 underline">Back to home</button>
+        </div>
+    </div>
+
+    <div id="riderModal" class="fixed inset-0 z-[3000] hidden items-center justify-center bg-black/60 p-3 backdrop-blur-sm md:p-6">
+        <div class="flex max-h-[95vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-2xl md:max-w-2xl">
+            <div class="flex items-center justify-between border-b border-slate-100 px-4 py-3 md:px-5">
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-900 md:text-base">Live delivery</h3>
+                    <p class="text-xs text-slate-500">Order <span id="track-order-ref" class="font-mono text-slate-700"></span></p>
+                </div>
+                <button type="button" onclick="closeRiderModal()" class="rounded-lg p-2 text-slate-500 hover:bg-slate-100" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="border-b border-slate-100 bg-slate-50 px-3 py-3 md:px-5">
+                <div class="flex justify-between gap-1 text-[10px] font-medium text-slate-500 md:text-xs" id="tracking-steps">
+                    <span id="step-0" class="tracking-step flex-1 rounded-lg bg-[#C5A059] px-1 py-2 text-center text-white">Confirmed</span>
+                    <span id="step-1" class="tracking-step flex-1 rounded-lg bg-slate-200 px-1 py-2 text-center text-slate-600">Picked up</span>
+                    <span id="step-2" class="tracking-step flex-1 rounded-lg bg-slate-200 px-1 py-2 text-center text-slate-600">En route</span>
+                    <span id="step-3" class="tracking-step flex-1 rounded-lg bg-slate-200 px-1 py-2 text-center text-slate-600">Delivered</span>
+                </div>
+            </div>
+
+            <div class="gp-map-surface relative h-48 w-full overflow-hidden md:h-56">
+                <svg class="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true">
+                    <path class="gp-route-line" d="M 30 140 Q 120 40 200 100 T 370 60" />
+                </svg>
+                <div class="gp-rider-marker absolute z-10 text-lg">
+                    <i class="fa-solid fa-motorcycle"></i>
+                </div>
+                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between text-[10px] text-white/90 md:text-xs">
+                    <span><i class="fa-solid fa-store mr-1"></i>Restaurant</span>
+                    <span><i class="fa-solid fa-house-chimney mr-1"></i>You</span>
+                </div>
+                <div class="absolute left-1/2 top-4 -translate-x-1/2 rounded-full bg-black/35 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                    ETA <span id="eta-text">28</span> min
+                </div>
+            </div>
+
+            <div class="flex flex-1 flex-col gap-4 overflow-y-auto p-4 md:flex-row md:items-start md:p-5">
+                <div class="flex gap-3 md:w-2/5">
+                    <img src="https://www.orangecorners.com/app/uploads/2023/09/Anthony-Owusu-Ansah-3.jpg" alt="Anthony Owusu" width="72" height="72" class="h-16 w-16 shrink-0 rounded-2xl object-cover ring-2 ring-[#C5A059]/35 md:h-[4.5rem] md:w-[4.5rem]">
+                    <div class="min-w-0">
+                        <p class="font-semibold text-slate-900">Anthony Owusu</p>
+                        <p class="text-xs text-slate-500">Yamaha • <span class="text-amber-500"><i class="fa-solid fa-star text-[10px]"></i> 4.9</span></p>
+                        <p class="mt-1 font-mono text-xs text-slate-600">024 754 8991</p>
+                        <a href="tel:0247778888" onclick="event.preventDefault(); fakeCall();" class="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#fdf8eb] px-3 py-1.5 text-xs font-semibold text-[#5c4d2c] hover:bg-[#f5ead8]">
+                            <i class="fa-solid fa-phone"></i> Call rider
+                        </a>
+                    </div>
+                </div>
+                <div class="md:flex-1">
+                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Updates</p>
+                    <div id="status-updates" class="mt-2 space-y-3 text-sm text-slate-700"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-auto border-t border-[#e9d5a8] bg-white py-4 md:py-5">
+        <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-4 px-4 text-sm md:grid-cols-3 md:gap-6 md:px-6">
+            <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-stone-600" aria-label="Footer">
+                <a href="index.html" class="hover:text-[#C5A059]">Home</a>
+                <a href="menu.html" class="hover:text-[#C5A059]">Menu</a>
+                <a href="support.html" class="hover:text-[#C5A059]">Support</a>
+            </nav>
+            <div class="flex flex-wrap items-center justify-center gap-5 md:justify-end">
+                <div class="flex items-center gap-4 text-[#5c4d2c]">
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#C5A059]" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="hover:text-[#C5A059]" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                    <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#C5A059]" aria-label="X"><i class="fa-brands fa-x-twitter text-lg"></i></a>
+                </div>
+                <span class="whitespace-nowrap text-xs font-semibold tracking-wide text-[#C5A059]">Made by Frost</span>
+            </div>
+            <p class="text-center text-xs text-stone-500 md:text-left">© 2026 Generous Plate</p>
+        </div>
+    </footer>
+
+    <script>
+        let donationAmount = 0;
+        let currentOrderId = '';
+        let trackingInterval = null;
+
+        function initializeTailwind() {
+            tailwind.config = { content: ["./**/*.{html,js}"] };
+        }
+
+        function renderCart() {
+            const cart = getCart();
+            const container = document.getElementById('cart-items');
+            const subtotal = getCartTotal();
+            document.getElementById('subtotal').textContent = 'GH₵' + subtotal;
+            document.getElementById('total-amount').textContent = 'GH₵' + (subtotal + donationAmount);
+            const label = document.getElementById('place-order-label');
+            if (label) label.textContent = cart.length ? 'Place order & pay GH₵' + (subtotal + donationAmount) : 'Place order & pay';
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-center text-sm text-stone-500 py-6">Cart is empty. <a href="menu.html" class="font-medium text-[#C5A059] underline">Browse menu</a></p>';
+                return;
+            }
+
+            let html = '';
+            cart.forEach(item => {
+                html += `
+                <div class="flex gap-3 border-b border-slate-100 pb-4">
+                    <img src="${item.img}" alt="" class="h-14 w-14 shrink-0 rounded-xl object-cover">
+                    <div class="min-w-0 flex-1">
+                        <p class="truncate font-medium text-slate-900">${item.name}</p>
+                        <p class="text-xs text-slate-500">${item.restaurant}</p>
+                        <div class="mt-2 flex flex-wrap items-center gap-2">
+                            <div class="inline-flex items-center rounded-full border border-slate-200 text-xs">
+                                <button type="button" onclick="updateItemQty(${item.id}, -1)" class="px-2 py-1 text-slate-600 hover:bg-slate-50">−</button>
+                                <span class="min-w-[1.5rem] px-1 text-center">${item.quantity || 1}</span>
+                                <button type="button" onclick="updateItemQty(${item.id}, 1)" class="px-2 py-1 text-slate-600 hover:bg-slate-50">+</button>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-800">GH₵${(item.price * (item.quantity || 1)).toFixed(0)}</span>
+                            <button type="button" onclick="removeItem(${item.id})" class="ml-auto text-xs font-medium text-red-600 hover:underline">Remove</button>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function updateItemQty(id, change) {
+            let cart = getCart();
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity = (item.quantity || 1) + change;
+                if (item.quantity < 1) item.quantity = 1;
+                saveCart(cart);
+                renderCart();
+                updateCartCount();
+            }
+        }
+
+        function removeItem(id) {
+            removeFromCart(id);
+            renderCart();
+            updateCartCount();
+        }
+
+        function addDonation(amount) {
+            donationAmount = amount;
+            document.getElementById('donation-amount').classList.remove('hidden');
+            document.getElementById('donation-value').textContent = 'GH₵' + donationAmount;
+            renderCart();
+        }
+
+        function addCustomDonation() {
+            const custom = parseInt(document.getElementById('custom-donation').value, 10) || 0;
+            if (custom > 0) {
+                donationAmount = custom;
+                document.getElementById('donation-amount').classList.remove('hidden');
+                document.getElementById('donation-value').textContent = 'GH₵' + donationAmount;
+                renderCart();
+            }
+        }
+
+        function switchPayment(tab) {
+            const momo = document.getElementById('tab-momo');
+            const card = document.getElementById('tab-card');
+            const active = 'flex-1 border-b-2 border-[#C5A059] py-2.5 text-sm font-semibold text-[#8B6914]';
+            const inactive = 'flex-1 border-b-2 border-transparent py-2.5 text-sm font-medium text-slate-500';
+            if (tab === 0) {
+                momo.className = active;
+                card.className = inactive;
+                document.getElementById('momo-form').classList.remove('hidden');
+                document.getElementById('card-form').classList.add('hidden');
+            } else {
+                card.className = active;
+                momo.className = inactive;
+                document.getElementById('card-form').classList.remove('hidden');
+                document.getElementById('momo-form').classList.add('hidden');
+            }
+        }
+
+        function placeOrder() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                alert('Your cart is empty.');
+                return;
+            }
+            document.getElementById('processingModal').classList.remove('hidden');
+            document.getElementById('processingModal').classList.add('flex');
+
+            setTimeout(() => {
+                document.getElementById('processingModal').classList.add('hidden');
+                document.getElementById('processingModal').classList.remove('flex');
+
+                currentOrderId = 'GP-' + Math.floor(100000 + Math.random() * 900000);
+                const orders = JSON.parse(localStorage.getItem('generousOrders') || '[]');
+                orders.push({
+                    id: currentOrderId,
+                    items: cart,
+                    total: getCartTotal() + donationAmount,
+                    donation: donationAmount,
+                    address: document.getElementById('address').value,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('generousOrders', JSON.stringify(orders));
+
+                document.getElementById('order-id').textContent = currentOrderId;
+                if (donationAmount > 0) {
+                    document.getElementById('donation-thanks').classList.remove('hidden');
+                } else {
+                    document.getElementById('donation-thanks').classList.add('hidden');
+                }
+                document.getElementById('successModal').classList.remove('hidden');
+                document.getElementById('successModal').classList.add('flex');
+                clearCart();
+            }, 2800);
+        }
+
+        function showRiderTracking() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('successModal').classList.remove('flex');
+            document.getElementById('riderModal').classList.remove('hidden');
+            document.getElementById('riderModal').classList.add('flex');
+            document.getElementById('track-order-ref').textContent = currentOrderId;
+            startLiveTracking();
+        }
+
+        function closeRiderModal() {
+            document.getElementById('riderModal').classList.add('hidden');
+            document.getElementById('riderModal').classList.remove('flex');
+            if (trackingInterval) {
+                clearInterval(trackingInterval);
+                trackingInterval = null;
+            }
+            donationAmount = 0;
+        }
+
+        function setTrackingStep(activeIndex) {
+            for (let i = 0; i < 4; i++) {
+                const el = document.getElementById('step-' + i);
+                if (!el) continue;
+                if (i <= activeIndex) {
+                    el.className = 'tracking-step flex-1 rounded-lg bg-[#C5A059] px-1 py-2 text-center text-[10px] font-semibold text-white md:text-xs';
+                } else {
+                    el.className = 'tracking-step flex-1 rounded-lg bg-stone-200 px-1 py-2 text-center text-[10px] font-medium text-stone-600 md:text-xs';
+                }
+            }
+        }
+
+        const trackingUpdates = [
+            { step: 1, eta: 24, title: 'Picked up', text: 'Your order left the restaurant and is sealed for delivery.', icon: 'fa-box-open' },
+            { step: 2, eta: 14, title: 'On the way', text: 'Kojo is following the fastest route to your pin.', icon: 'fa-route' },
+            { step: 2, eta: 8, title: 'Almost there', text: 'Rider is in your neighbourhood. Show order ID to rider ', icon: 'fa-location-crosshairs' },
+            { step: 3, eta: 0, title: 'Delivered', text: 'Handoff complete. Enjoy your meal!', icon: 'fa-circle-check' }
+        ];
+
+        function startLiveTracking() {
+            const container = document.getElementById('status-updates');
+            container.innerHTML = '';
+            setTrackingStep(0);
+            document.getElementById('eta-text').textContent = '28';
+
+            let i = 0;
+            if (trackingInterval) clearInterval(trackingInterval);
+
+            function appendUpdate(entry) {
+                setTrackingStep(entry.step);
+                document.getElementById('eta-text').textContent = entry.eta;
+                const row = document.createElement('div');
+                row.className = 'flex gap-3 rounded-xl border border-slate-100 bg-slate-50/80 p-3';
+                row.innerHTML = `
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#C5A059] shadow-sm">
+                        <i class="fa-solid ${entry.icon} text-sm"></i>
+                    </span>
+                    <div>
+                        <p class="text-xs font-semibold text-slate-900">${entry.title}</p>
+                        <p class="mt-0.5 text-xs leading-relaxed text-slate-600">${entry.text}</p>
+                    </div>`;
+                container.appendChild(row);
+            }
+
+            function tick() {
+                if (i < trackingUpdates.length) {
+                    appendUpdate(trackingUpdates[i]);
+                    i++;
+                } else {
+                    clearInterval(trackingInterval);
+                    trackingInterval = null;
+                }
+            }
+            tick();
+            trackingInterval = setInterval(tick, 5500);
+        }
+
+        function fakeCall() {
+            alert('Demo: would open your phone dialer to call the rider.');
+        }
+
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+
+        window.onload = function() {
+            initializeTailwind();
+            updateCartCount();
+            renderCart();
+        };
+    </script>
+</body>
+</html>
