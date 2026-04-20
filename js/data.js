@@ -154,7 +154,6 @@ const products = [
 
 const categories = ["All", "Ghanaian", "Fast Food", "Healthy"];
 
-/** Resolve three image URLs for carousels */
 function getProductImages(p) {
   if (p.images && p.images.length >= 3) return p.images.slice(0, 3);
   const base = p.img || "";
@@ -162,14 +161,54 @@ function getProductImages(p) {
 }
 
 const teamMembers = [
-  { name: "Prince Kwablah Kporxah 10295536", photo: "https://timeshighereducation.com/campus/sites/default/files/2023-01/Ten%20actions%20to%20improve%20the%20experiences%20of%20Black%20students%20within%20UK%20universities.jpg" },
-  { name: "Felix Frempong 10295307", photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhVXfbTY_182T8retkoz-Kyl7gkH77lVOd2A&s" },
-  { name: "Cedar Nortey 10295368", photo: "https://www.shutterstock.com/image-photo/positive-african-american-millennia-guy-600nw-2115584555.jpg" },
-  { name: "Elsie Amegah 10297670", photo: "https://st.depositphotos.com/1011643/2013/i/450/depositphotos_20131067-stock-photo-female-african-american-college-student.jpg" },
-  { name: "Wasiri Olayinka 10297670", photo: "https://i0.wp.com/hbculifestyle.com/wp-content/uploads/2014/02/First-Generation-College-Student-Tips-for-Success.jpg?resize=750%2C500&ssl=1" },
-  { name: "Nathashia Sampong 10295636", photo: "https://media.istockphoto.com/id/1365601848/photo/portrait-of-a-young-woman-carrying-her-schoolbooks-outside-at-college.jpg?s=612x612&w=0&k=20&c=EVxLUZsL0ueYFF1Nixit6hg-DkiV52ddGw_orw9BSJA=" },
-  { name: "Christiana Otoo 10295377", photo: "https://img.freepik.com/premium-photo/beautiful-female-african-american-university-student-portrait_255667-21632.jpg" },
-  { name: "Priscilla Oppong 10296644", photo: "https://t3.ftcdn.net/jpg/05/60/70/68/360_F_560706812_0GNEvn3tqo6OVQtE0JIvlwZx8fu6S2SR.jpg" },
-  { name: "Philipa Fynn 10295633", photo: "https://previews.123rf.com/images/rh2010/rh20101704/rh2010170400113/75400352-portrait-of-a-young-african-student.jpg" },
-  { name: "Emmanuella Baah 10295295", photo: "https://static.vecteezy.com/system/resources/previews/013/572/164/non_2x/feeling-confident-about-exams-cheerful-african-female-student-holding-books-and-smiling-while-standing-in-library-free-photo.JPG" }
+  {
+    name: "Prince Kwablah Kporxah",
+    role: "Managing Director",
+    photo: "https://timeshighereducation.com/campus/sites/default/files/2023-01/Ten%20actions%20to%20improve%20the%20experiences%20of%20Black%20students%20within%20UK%20universities.jpg"
+  },
+  {
+    name: "Felix Frempong",
+    role: "Chief Technical Officer",
+    photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhVXfbTY_182T8retkoz-Kyl7gkH77lVOd2A&s"
+  },
+  {
+    name: "Cedar Nortey",
+    role: "Chief Financial Officer",
+    photo: "https://www.euroschoolindia.com/blogs/wp-content/uploads/2023/10/Yale-university-admission-jpg.webp"
+  },
+  {
+    name: "Elsie Amegah",
+    role: "Marketing Specialist",
+    photo: "https://st.depositphotos.com/1011643/2013/i/450/depositphotos_20131067-stock-photo-female-african-american-college-student.jpg"
+  },
+  {
+    name: "Wasiri Olayinka",
+    role: "Customer Relations Officer",
+    photo: "https://i0.wp.com/hbculifestyle.com/wp-content/uploads/2014/02/First-Generation-College-Student-Tips-for-Success.jpg?resize=750%2C500&ssl=1"
+  },
+  {
+    name: "Nathashia Sampong",
+    role: "Volunteer Coordinator",
+    photo: "https://media.istockphoto.com/id/1365601848/photo/portrait-of-a-young-woman-carrying-her-schoolbooks-outside-at-college.jpg?s=612x612&w=0&k=20&c=EVxLUZsL0ueYFF1Nixit6hg-DkiV52ddGw_orw9BSJA="
+  },
+  {
+    name: "Christiana Otoo",
+    role: "Assistant Volunteer Coordinator",
+    photo: "https://img.freepik.com/premium-photo/beautiful-female-african-american-university-student-portrait_255667-21632.jpg"
+  },
+  {
+    name: "Priscilla Oppong",
+    role: "2nd Assistant Volunteer Coordinator",
+    photo: "https://t3.ftcdn.net/jpg/05/60/70/68/360_F_560706812_0GNEvn3tqo6OVQtE0JIvlwZx8fu6S2SR.jpg"
+  },
+  {
+    name: "Philipa Fynn",
+    role: "Restaurant Partnership Manager",
+    photo: "https://previews.123rf.com/images/rh2010/rh20101704/rh2010170400113/75400352-portrait-of-a-young-african-student.jpg"
+  },
+  {
+    name: "Emmanuella Baah",
+    role: "Asst. Restaurant Partnership Manager",
+    photo: "https://static.vecteezy.com/system/resources/previews/013/572/164/non_2x/feeling-confident-about-exams-cheerful-african-female-student-holding-books-and-smiling-while-standing-in-library-free-photo.JPG"
+  }
 ];
