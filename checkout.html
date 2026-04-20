@@ -307,6 +307,35 @@
             tailwind.config = { content: ["./**/*.{html,js}"] };
         }
 
+        function validateDeliveryDetails() {
+            const name    = document.getElementById('name').value.trim();
+            const phone   = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+
+            if (!name) {
+                alert(" Please enter your full name.");
+                document.getElementById('name').focus();
+                return false;
+            }
+            if (!phone) {
+                alert(" Please enter your phone number.");
+                document.getElementById('phone').focus();
+                return false;
+            }
+            if (phone.length < 9) {
+                alert(" Phone number is too short. Please enter a valid number (e.g. 024 555 1234).");
+                document.getElementById('phone').focus();
+                return false;
+            }
+            if (!address) {
+                alert(" Please enter your delivery address.");
+                document.getElementById('address').focus();
+                return false;
+            }
+
+            return true; 
+        }
+
         function renderCart() {
             const cart = getCart();
             const container = document.getElementById('cart-items');
@@ -398,11 +427,16 @@
         }
 
         function placeOrder() {
+            if (!validateDeliveryDetails()) {
+                return;   
+            }
+
             const cart = getCart();
             if (cart.length === 0) {
                 alert('Your cart is empty.');
                 return;
             }
+
             document.getElementById('processingModal').classList.remove('hidden');
             document.getElementById('processingModal').classList.add('flex');
 
@@ -534,7 +568,7 @@
         }
 
         function fakeCall() {
-            alert('Demo: would open your phone dialer to call the rider.');
+            alert('Would open your phone dialer to call the rider.');
         }
 
         function goHome() {
