@@ -45,7 +45,7 @@
                     <i class="fa-solid fa-bars text-lg"></i>
                 </button>
                 <a href="index.html" class="flex min-w-0 items-center">
-                    <img src="assets/logo.png" alt="Generous Plate" class="h-9 w-auto max-h-11 object-contain object-left md:h-11" width="180" height="44">
+                    <img src="assets/logo.png" alt="Generous Plate" class="h-12 w-auto max-h-16 object-contain object-left md:h-14">
                 </a>
             </div>
             <div class="hidden items-center gap-1 md:flex">
@@ -157,28 +157,43 @@
             </div>
         </section>
 
-        <section class="border-t border-[#e9d5a8] bg-[#1a1a1a] py-10 text-white">
-            <div class="mx-auto max-w-6xl px-4 text-center md:px-6">
-                <p class="text-3xl font-bold tracking-tight text-[#f5e6c8] md:text-4xl">1,247</p>
-                <p class="mt-1 text-sm text-[#d4c4a8]">Meals supported through customer donations last month</p>
-                <p class="mx-auto mt-4 max-w-xl text-xs leading-relaxed text-stone-400 md:text-sm">
-                    Small add-ons at checkout add up. Thank you for feeding your community.
-                </p>
+        <section class="border-t border-[#e9d5a8] bg-[#1a1a1a] py-12 text-white">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
+                
+                <!-- Donation Image -->
+                <div class="mx-auto mb-8 max-w-md overflow-hidden rounded-3xl border border-[#e9d5a8]/30 shadow-2xl">
+                    <img src="https://lagosfoodbank.org/wp-content/uploads/2023/05/350367533_1988569418208122_3569310264967718453_n.jpg" 
+                         alt="Community food donation in Ghana" 
+                         class="w-full h-auto object-cover">
+                </div>
+
+                <div class="text-center">
+                    <p class="text-5xl font-bold tracking-tighter text-[#f5e6c8] md:text-6xl">1,247</p>
+                    <p class="mt-2 text-lg text-[#d4c4a8]">Meals supported through customer donations last month</p>
+                    
+                    <p class="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-stone-400">
+                        Every optional donation you add at checkout helps feed someone in our community. 
+                        <span class="text-[#C5A059]">Thank you for feeding hearts</span>
+                    </p>
+                </div>
             </div>
-        </section>
+        </section>    
     </main>
 
     <footer class="mt-auto border-t border-[#e9d5a8] bg-white py-4 md:py-5">
         <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-4 px-4 text-sm md:grid-cols-3 md:gap-6 md:px-6">
-             <div class="flex items-center justify-center gap-3 md:justify-start">
-                <img src="assets/logo.png" alt="Generous Plate" class="h-9 w-auto max-h-11 object-contain object-left md:h-11" width="180" height="44">
+
+            <div class="flex items-center justify-center gap-3 md:justify-start">
+                <img src="assets/logo.png" alt="Generous Plate" class="h-11 w-auto max-h-14 object-contain object-left md:h-14" width="200" height="50">
                 <span class="text-xl font-semibold tracking-tight text-[#1a1a1a]">Generous Plate</span>
             </div>
+
             <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-stone-600" aria-label="Footer">
                 <a href="index.html" class="hover:text-[#C5A059]">Home</a>
                 <a href="menu.html" class="hover:text-[#C5A059]">Menu</a>
                 <a href="support.html" class="hover:text-[#C5A059]">Support</a>
             </nav>
+
             <div class="flex flex-wrap items-center justify-center gap-5 md:justify-end">
                 <div class="flex items-center gap-4 text-[#5c4d2c]">
                     <a href="https://www.instagram.com/biteandeatghana/" target="_blank" rel="noopener noreferrer" class="hover:text-[#C5A059]" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
@@ -187,6 +202,7 @@
                 </div>
                 <span class="whitespace-nowrap text-xs font-semibold tracking-wide text-[#C5A059]">Made by Frost</span>
             </div>
+            
             <p class="text-center text-xs text-stone-500 md:text-left">© 2026 Generous Plate</p>
         </div>
     </footer>
@@ -222,9 +238,15 @@
             });
             const slides = teamMembers.map(m => `
                 <div class="flex min-w-full flex-col items-center justify-center gap-3 px-4 py-4 sm:flex-row sm:gap-6 sm:px-8">
-                    <img src="${m.photo}" alt="" class="h-20 w-20 shrink-0 rounded-full object-cover shadow-md ring-2 ring-[#C5A059]/45 sm:h-24 sm:w-24" width="96" height="96" loading="lazy">
-                    <p class="logo-font text-center text-lg font-semibold text-[#1a1a1a] sm:text-left sm:text-xl">${m.name}</p>
+                    <img src="${m.photo}" alt="${m.name}" 
+                        class="h-20 w-20 shrink-0 rounded-full object-cover shadow-md ring-2 ring-[#C5A059]/45 sm:h-24 sm:w-24" 
+                        width="96" height="96" loading="lazy">
+                    <div class="text-center sm:text-left">
+                        <p class="logo-font text-lg font-semibold text-[#1a1a1a] sm:text-xl">${m.name}</p>
+                        <p class="text-sm text-[#C5A059] mt-1">${m.role}</p>
+                    </div>
                 </div>`).join('');
+
             html += `
             <div class="col-span-2 flex min-h-[11rem] flex-col overflow-hidden rounded-xl border border-[#e9d5a8] bg-gradient-to-br from-white via-[#fffcf7] to-[#fdf8eb] shadow-sm sm:min-h-[12.5rem]">
                 <p class="px-3 pt-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8B7355]">Team spotlight</p>
