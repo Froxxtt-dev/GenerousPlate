@@ -312,6 +312,7 @@
             const phone   = document.getElementById('phone').value.trim();
             const address = document.getElementById('address').value.trim();
 
+    
             if (!name) {
                 alert(" Please enter your full name.");
                 document.getElementById('name').focus();
@@ -322,15 +323,34 @@
                 document.getElementById('phone').focus();
                 return false;
             }
-            if (phone.length < 9) {
-                alert(" Phone number is too short. Please enter a valid number (e.g. 024 555 1234).");
-                document.getElementById('phone').focus();
-                return false;
-            }
             if (!address) {
                 alert(" Please enter your delivery address.");
                 document.getElementById('address').focus();
                 return false;
+            }
+
+            const momoFormVisible = !document.getElementById('momo-form').classList.contains('hidden');
+
+            if (momoFormVisible) {
+                const momoNumber = document.getElementById('momo-phone').value.trim();
+                if (!momoNumber) {
+                    alert(" Please enter your MoMo number.");
+                    document.getElementById('momo-phone').focus();
+                    return false;
+                }
+        
+                if (momoNumber.length < 10) {
+                    alert(" MoMo number must be at least 10 digits.");
+                    document.getElementById('momo-phone').focus();
+                    return false;
+                }
+            } else {
+                const cardNumber = document.getElementById('card-number').value.trim();
+                if (!cardNumber) {
+                    alert(" Please enter your card number.");
+                    document.getElementById('card-number').focus();
+                    return false;
+                }
             }
 
             return true; 
