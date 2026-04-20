@@ -42,7 +42,7 @@
                     <i class="fa-solid fa-bars text-lg"></i>
                 </button>
                 <a href="index.html" class="flex min-w-0 items-center">
-                    <img src="assets/logo.png" alt="Generous Plate" class="h-9 w-auto max-h-11 object-contain object-left md:h-11" width="180" height="44">
+                    <img src="assets/logo.png" alt="Generous Plate" class="h-12 w-auto max-h-16 object-contain object-left md:h-14">
                 </a>
             </div>
             <div class="hidden items-center gap-1 md:flex">
@@ -91,14 +91,14 @@
                 <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
                     <h2 class="text-base font-semibold text-slate-900">Payment</h2>
                     <div class="mt-4 flex border-b border-slate-200">
-                        <button type="button" onclick="switchPayment(0)" id="tab-momo" class="flex-1 border-b-2 border-[#C5A059] py-2.5 text-sm font-semibold text-[#8B6914]">MTN MoMo</button>
+                        <button type="button" onclick="switchPayment(0)" id="tab-momo" class="flex-1 border-b-2 border-[#C5A059] py-2.5 text-sm font-semibold text-[#8B6914]">Mobile Payment</button>
                         <button type="button" onclick="switchPayment(1)" id="tab-card" class="flex-1 border-b-2 border-transparent py-2.5 text-sm font-medium text-slate-500">Card</button>
                     </div>
                     <div id="momo-form" class="mt-4">
                         <div class="rounded-xl bg-[#fdf8eb]/90 p-4">
                             <p class="text-sm font-medium text-stone-800">MoMo number</p>
                             <input id="momo-phone" type="tel"  placeholder="024 XXX XXXX" class="mt-2 w-full rounded-xl border border-[#e9d5a8] bg-white px-3 py-2.5 text-sm focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059]">
-                            <p class="mt-2 text-xs text-slate-500">You’ll confirm payment on your handset.</p>
+                            <p class="mt-2 text-xs text-slate-500">You’ll confirm payment on your phone.</p>
                         </div>
                     </div>
                     <div id="card-form" class="mt-4 hidden space-y-4">
@@ -180,19 +180,44 @@
             <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#fdf8eb] text-[#8B6914]">
                 <i class="fa-solid fa-check text-2xl"></i>
             </div>
-            <h2 class="mt-5 text-xl font-bold text-slate-900">Order confirmed</h2>
-            <p class="mt-2 text-sm text-slate-600">Reference <span id="order-id" class="font-mono font-semibold text-slate-900"></span></p>
-            <div class="mt-5 rounded-xl bg-slate-50 p-4 text-left text-sm text-slate-600">
-                <p>We’ve notified the restaurant and assigned a rider. Typical arrival: 20–40 minutes.</p>
+            <h2 class="mt-5 text-xl font-bold text-slate-900">Order Confirmed!</h2>
+            <p class="mt-1 text-sm text-slate-600">Reference <span id="order-id" class="font-mono font-semibold"></span></p>
+
+            <div class="mt-6 rounded-2xl border border-[#e9d5a8] bg-[#fdf8eb] p-5">
+                <div class="flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-fire-burner text-3xl text-[#C5A059]"></i>
+                    <div class="text-left">
+                        <p class="font-semibold text-slate-900">Kitchen is preparing your meal</p>
+                        <p class="text-sm text-slate-600">Your order has been received and is now being freshly cooked.</p>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                        <span id="progress-text">Preparing...</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="h-3 w-full overflow-hidden rounded-full bg-white border border-[#e9d5a8]">
+                        <div id="cooking-progress" class="h-full w-0 bg-gradient-to-r from-[#C5A059] to-[#8B6914] transition-all duration-300 ease-out"></div>
+                    </div>
+                    <div class="mt-1 flex justify-center text-[#C5A059]">
+                        <i id="flame-icon" class="fa-solid fa-fire fa-beat text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 rounded-xl bg-slate-50 p-4 text-left text-sm text-slate-600">
+                <p>We’ve notified the restaurant. Typical preparation time: 10–20 minutes.</p>
                 <p id="donation-thanks" class="mt-3 hidden text-sm font-medium text-[#8B6914]">Thank you. Your donation helps feed someone in need.</p>
             </div>
+
             <button type="button" onclick="showRiderTracking()" class="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#C5A059] py-3 text-sm font-semibold text-white hover:bg-[#b08d4f]">
-                <i class="fa-solid fa-route"></i> Track delivery
+                <i class="fa-solid fa-route"></i> Track my order
             </button>
             <button type="button" onclick="goHome()" class="mt-3 text-sm text-slate-500 underline">Back to home</button>
         </div>
     </div>
-
+    
     <div id="riderModal" class="fixed inset-0 z-[3000] hidden items-center justify-center bg-black/60 p-3 backdrop-blur-sm md:p-6">
         <div class="flex max-h-[95vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-2xl md:max-w-2xl">
             <div class="flex items-center justify-between border-b border-slate-100 px-4 py-3 md:px-5">
@@ -252,8 +277,8 @@
 
     <footer class="mt-auto border-t border-[#e9d5a8] bg-white py-4 md:py-5">
         <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-4 px-4 text-sm md:grid-cols-3 md:gap-6 md:px-6">
-             <div class="flex items-center justify-center gap-3 md:justify-start">
-                <img src="assets/logo.png" alt="Generous Plate" class="h-9 w-auto max-h-11 object-contain object-left md:h-11" width="180" height="44">
+            <div class="flex items-center justify-center gap-3 md:justify-start">
+                <img src="assets/logo.png" alt="Generous Plate" class="h-11 w-auto max-h-14 object-contain object-left md:h-14" width="200" height="50">
                 <span class="text-xl font-semibold tracking-tight text-[#1a1a1a]">Generous Plate</span>
             </div>
             <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-stone-600" aria-label="Footer">
@@ -405,8 +430,31 @@
                 }
                 document.getElementById('successModal').classList.remove('hidden');
                 document.getElementById('successModal').classList.add('flex');
+                startCookingAnimation();   
                 clearCart();
             }, 2800);
+        }
+
+        function startCookingAnimation() {
+            const progressBar = document.getElementById('cooking-progress');
+            const percentText = document.getElementById('progress-percent');
+            const progressText = document.getElementById('progress-text');
+            let progress = 0;
+
+            const interval = setInterval(() => {
+                progress += Math.random() * 5;
+                if (progress > 100) progress = 100;
+
+                progressBar.style.width = `${progress}%`;
+                percentText.textContent = `${Math.floor(progress)}%`;
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    progressText.textContent = "Ready for pickup!";
+                    progressText.classList.add('text-[#8B6914]');
+                    document.getElementById('flame-icon').classList.remove('fa-beat');
+                }
+            }, 350);
         }
 
         function showRiderTracking() {
@@ -442,7 +490,7 @@
 
         const trackingUpdates = [
             { step: 1, eta: 24, title: 'Picked up', text: 'Your order left the restaurant and is sealed for delivery.', icon: 'fa-box-open' },
-            { step: 2, eta: 14, title: 'On the way', text: 'Anthony is following the fastest route to your pin.', icon: 'fa-route' },
+            { step: 2, eta: 14, title: 'On the way', text: 'Kojo is following the fastest route to your pin.', icon: 'fa-route' },
             { step: 2, eta: 8, title: 'Almost there', text: 'Rider is in your neighbourhood. Show order ID to rider ', icon: 'fa-location-crosshairs' },
             { step: 3, eta: 0, title: 'Delivered', text: 'Handoff complete. Enjoy your meal!', icon: 'fa-circle-check' }
         ];
@@ -498,6 +546,8 @@
             updateCartCount();
             renderCart();
         };
+
+        
     </script>
 </body>
 </html>
